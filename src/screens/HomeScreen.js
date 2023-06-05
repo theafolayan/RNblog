@@ -9,19 +9,19 @@ const articles = [
       "Artile 1 is an example of how a subscription can work at scale.",
   },
   {
-    title: "Article 1",
+    title: "Article 2",
     published_at: "Wed 25 2023",
     description:
       "Artile 1 is an example of how a subscription can work at scale.",
   },
   {
-    title: "Article 1",
+    title: "Article 3",
     published_at: "Wed 25 2023",
     description:
       "Artile 1 is an example of how a subscription can work at scale.",
   },
   {
-    title: "Article 1",
+    title: "Article 4",
     published_at: "Wed 25 2023",
     description:
       "Artile 1 is an example of how a subscription can work at scale.",
@@ -42,10 +42,19 @@ const articles = [
 
 export default function HomeScreen() {
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={styles.pageContainer}>
       <FlatList
         data={articles}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}> Welcome to RN Blog</Text>
+            <Text>
+              Here, you'll find a lot of stuff that contains stuff about a lot
+              of stuff. You could almost say it's a blog for stuff
+            </Text>
+          </View>
+        }
         renderItem={({ item }) => {
           return (
             <ArticleCard
@@ -71,11 +80,22 @@ const ArticleCard = ({ title, description, published_at }) => {
 };
 
 const styles = StyleSheet.create({
+  pageContainer: {
+    paddingHorizontal: 20,
+  },
+  headerContainer: {
+    marginTop: 40,
+    marginBottom: 20,
+    paddingHorizontal: 20,
+    backgroundColor: "red",
+    paddingVertical: 20,
+  },
   container: {
     marginVertical: 20,
   },
   title: {
     fontSize: 24,
+    marginVertical: 5,
     fontWeight: "600",
   },
   description: {
