@@ -83,7 +83,7 @@ const ArticleCard = ({ title, description, published_at }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text>{published_at}</Text>
+      <Text style={styles.date}>{published_at}</Text>
       <Text style={styles.description}>{description}</Text>
     </View>
   );
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 20,
     paddingHorizontal: 20,
+    borderRadius: 8,
     backgroundColor: "red",
     paddingVertical: 20,
   },
@@ -117,5 +118,6 @@ const styles = StyleSheet.create({
   },
   date: {
     fontWeight: 13,
+    color: "grey",
   },
 });
