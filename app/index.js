@@ -1,46 +1,48 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import StoryblokClient from "storyblok-js-client";
+// const articles = [
+//   {
+//     title: "Article 1",
+//     published_at: "Wed 25 2023",
+//     description:
+//       "Artile 1 is an example of how a subscription can work at scale.",
+//   },
+//   {
+//     title: "Article 2",
+//     published_at: "Wed 25 2023",
+//     description:
+//       "Artile 1 is an example of how a subscription can work at scale.",
+//   },
+//   {
+//     title: "Article 3",
+//     published_at: "Wed 25 2023",
+//     description:
+//       "Artile 1 is an example of how a subscription can work at scale.",
+//   },
+//   {
+//     title: "Article 4",
+//     published_at: "Wed 25 2023",
+//     description:
+//       "Artile 1 is an example of how a subscription can work at scale.",
+//   },
+//   {
+//     title: "Article 1",
+//     published_at: "Wed 25 2023",
+//     description:
+//       "Artile 1 is an example of how a subscription can work at scale.",
+//   },
+//   {
+//     title: "Article 1",
+//     published_at: "Wed 25 2023",
+//     description:
+//       "Artile 1 is an example of how a subscription can work at scale.",
+//   },
+// ];
 
-const articless = [];
-const articles = [
-  {
-    title: "Article 1",
-    published_at: "Wed 25 2023",
-    description:
-      "Artile 1 is an example of how a subscription can work at scale.",
-  },
-  {
-    title: "Article 2",
-    published_at: "Wed 25 2023",
-    description:
-      "Artile 1 is an example of how a subscription can work at scale.",
-  },
-  {
-    title: "Article 3",
-    published_at: "Wed 25 2023",
-    description:
-      "Artile 1 is an example of how a subscription can work at scale.",
-  },
-  {
-    title: "Article 4",
-    published_at: "Wed 25 2023",
-    description:
-      "Artile 1 is an example of how a subscription can work at scale.",
-  },
-  {
-    title: "Article 1",
-    published_at: "Wed 25 2023",
-    description:
-      "Artile 1 is an example of how a subscription can work at scale.",
-  },
-  {
-    title: "Article 1",
-    published_at: "Wed 25 2023",
-    description:
-      "Artile 1 is an example of how a subscription can work at scale.",
-  },
-];
-
+const Storyblok = new StoryblokClient({
+  accessToken: "bJQrwmwzfdfhYHlZQ3YuYwtt",
+});
 const RenderEmptycomponent = () => (
   <View style={styles.emptyStateView}>
     <Text style={styles.description}>
@@ -50,6 +52,18 @@ const RenderEmptycomponent = () => (
 );
 
 export default function HomeScreen() {
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    Storyblok.getAll("cdn/stories", {
+      starts_with: "articles/",
+    })
+      .then((response) => {
+        setArticles(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <View style={styles.pageContainer}>
       <FlatList
@@ -68,9 +82,9 @@ export default function HomeScreen() {
         renderItem={({ item }) => {
           return (
             <ArticleCard
-              title={item.title}
+              title={item.name}
               published_at={item.published_at}
-              description={item.description}
+              description={item.content.teaser}
             />
           );
         }}
@@ -117,7 +131,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   date: {
-    fontWeight: 13,
+    fontSize: 13,
     color: "grey",
   },
 });
