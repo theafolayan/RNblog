@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import StoryblokClient from "storyblok-js-client";
+import HomeScreen from "./src/screens/HomeScreen";
 
 const Storyblok = new StoryblokClient({
   accessToken: "bJQrwmwzfdfhYHlZQ3YuYwtt",
@@ -19,8 +20,7 @@ Storyblok.getAll("cdn/stories", {
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <HomeScreen />
     </View>
   );
 }
