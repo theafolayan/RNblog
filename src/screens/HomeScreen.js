@@ -1,6 +1,7 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 
+const articless = [];
 const articles = [
   {
     title: "Article 1",
@@ -40,10 +41,19 @@ const articles = [
   },
 ];
 
+const RenderEmptycomponent = () => (
+  <View style={styles.emptyStateView}>
+    <Text style={styles.description}>
+      Sit tight user, articles will show up here once they're fetched
+    </Text>
+  </View>
+);
+
 export default function HomeScreen() {
   return (
     <View style={styles.pageContainer}>
       <FlatList
+        ListEmptyComponent={RenderEmptycomponent}
         data={articles}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
@@ -89,6 +99,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "red",
     paddingVertical: 20,
+  },
+  emptyStateView: {
+    alignItems: "center",
   },
   container: {
     marginVertical: 20,
