@@ -1,44 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import StoryblokClient from "storyblok-js-client";
-// const articles = [
-//   {
-//     title: "Article 1",
-//     published_at: "Wed 25 2023",
-//     description:
-//       "Artile 1 is an example of how a subscription can work at scale.",
-//   },
-//   {
-//     title: "Article 2",
-//     published_at: "Wed 25 2023",
-//     description:
-//       "Artile 1 is an example of how a subscription can work at scale.",
-//   },
-//   {
-//     title: "Article 3",
-//     published_at: "Wed 25 2023",
-//     description:
-//       "Artile 1 is an example of how a subscription can work at scale.",
-//   },
-//   {
-//     title: "Article 4",
-//     published_at: "Wed 25 2023",
-//     description:
-//       "Artile 1 is an example of how a subscription can work at scale.",
-//   },
-//   {
-//     title: "Article 1",
-//     published_at: "Wed 25 2023",
-//     description:
-//       "Artile 1 is an example of how a subscription can work at scale.",
-//   },
-//   {
-//     title: "Article 1",
-//     published_at: "Wed 25 2023",
-//     description:
-//       "Artile 1 is an example of how a subscription can work at scale.",
-//   },
-// ];
 
 const Storyblok = new StoryblokClient({
   accessToken: "bJQrwmwzfdfhYHlZQ3YuYwtt",
@@ -59,6 +21,8 @@ export default function HomeScreen() {
     })
       .then((response) => {
         setArticles(response);
+        const s = Storyblok.richTextResolver.render(response[2].content.text);
+        console.log(s);
       })
       .catch((error) => {
         console.log(error);
