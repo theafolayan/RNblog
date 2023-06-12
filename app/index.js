@@ -21,8 +21,9 @@ export default function HomeScreen() {
     })
       .then((response) => {
         setArticles(response);
-        const s = Storyblok.richTextResolver.render(response[2].content.text);
-        console.log(s);
+        console.log("RESPONSE", response);
+        // const s = Storyblok.richTextResolver.render(response[2].content.text);
+        // console.log(s);
       })
       .catch((error) => {
         console.log(error);
