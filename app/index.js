@@ -2,13 +2,25 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import StoryblokClient from "storyblok-js-client";
 
+import { styles } from "./styles";
+
 const Storyblok = new StoryblokClient({
   accessToken: "bJQrwmwzfdfhYHlZQ3YuYwtt",
 });
-const RenderEmptycomponent = () => (
+const RenderEmpty = () => (
   <View style={styles.emptyStateView}>
     <Text style={styles.description}>
       Sit tight user, articles will show up here once they're fetched
+    </Text>
+  </View>
+);
+
+const RenderHeader = () => (
+  <View style={styles.headerContainer}>
+    <Text style={styles.title}> Welcome to RN Blog</Text>
+    <Text>
+      Here, you'll find a lot of stuff that contains stuff about a lot of stuff.
+      You could almost say it's a blog for stuff
     </Text>
   </View>
 );
@@ -32,18 +44,10 @@ export default function HomeScreen() {
   return (
     <View style={styles.pageContainer}>
       <FlatList
-        ListEmptyComponent={RenderEmptycomponent}
+        ListEmptyComponent={RenderEmpty}
         data={articles}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <View style={styles.headerContainer}>
-            <Text style={styles.title}> Welcome to RN Blog</Text>
-            <Text>
-              Here, you'll find a lot of stuff that contains stuff about a lot
-              of stuff. You could almost say it's a blog for stuff
-            </Text>
-          </View>
-        }
+        ListHeaderComponent={RenderHeader}
         renderItem={({ item }) => {
           return (
             <ArticleCard
@@ -67,36 +71,3 @@ const ArticleCard = ({ title, description, published_at }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  pageContainer: {
-    paddingHorizontal: 20,
-  },
-  headerContainer: {
-    marginTop: 40,
-    marginBottom: 20,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    backgroundColor: "red",
-    paddingVertical: 20,
-  },
-  emptyStateView: {
-    alignItems: "center",
-  },
-  container: {
-    marginVertical: 20,
-  },
-  title: {
-    fontSize: 24,
-    marginVertical: 5,
-    fontWeight: "600",
-  },
-  description: {
-    fontSize: 16,
-    fontWeight: "400",
-  },
-  date: {
-    fontSize: 13,
-    color: "grey",
-  },
-});
